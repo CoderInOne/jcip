@@ -2,7 +2,7 @@ package xunshan.jcip;
 
 import org.junit.Before;
 import org.junit.Test;
-import xunshan.jcip.ch02.UnsafeSequence;
+import xunshan.jcip.basic.UnsafeSequence;
 import xunshan.jcip.util.SimpleThreadUtils;
 
 import static org.junit.Assert.*;

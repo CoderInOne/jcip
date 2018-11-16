@@ -1,7 +1,7 @@
 package xunshan.jcip;
 
 import org.junit.Test;
-import xunshan.jcip.ch02.UnsafeTuple;
+import xunshan.jcip.basic.UnsafeTuple;
 import xunshan.jcip.util.SimpleThreadUtils;
 
 public class UnsafeTupleTest {

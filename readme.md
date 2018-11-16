@@ -15,6 +15,12 @@ void update() {
 }
 ```
 
+Example:
+
+- [UnsafeSequence](src/main/java/xunshan/jcip/basic/UnsafeSequence.java)
+- [UnsafeObservable](src/main/java/xunshan/jcip/basic/UnsafeObservable.java)
+- [UnsafeTuple](src/main/java/xunshan/jcip/basic/UnsafeTuple.java)
+
 how `v` read and change?
 
 - read `v` from memory

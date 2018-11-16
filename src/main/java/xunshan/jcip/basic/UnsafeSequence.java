@@ -1,4 +1,4 @@
-package xunshan.jcip.ch02;
+package xunshan.jcip.basic;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import xunshan.jcip.ch02.UnsafeObservable;
+import xunshan.jcip.basic.UnsafeObservable;
 import xunshan.jcip.util.SimpleThreadUtils;
 
 import java.util.Observer;
