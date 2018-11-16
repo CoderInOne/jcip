@@ -106,6 +106,42 @@ When `update` is locked, only one thread can hold it once; others should wait ho
 Question: after lock holder releases lock, other threads can acquire it, but who can and who control this
 behavior?
 
+### How to share objects safely
 
+- Thread-confined
+  - stack confinement: shared variable used and updated only in method and no escape
+  - JDBC pool or SpringMVC: one request, one thread
+  - ThreadLocal: every thread has its own variable that is invisible for others
+- Immutable objects: no value can be changed
+- Share thread-safe
+- Guarded
 
+### Blocking
 
+#### Object#wait & #notify
+
+[Threads in Java: Live Example: sleep, yield, wait, notify; inter-thread communications](https://www.youtube.com/watch?v=1BvYJMgIAeU)
+is a great live example to illustrate sleep, yield, wait and notify topic. Really interesting!
+
+See [ObjectWaitTest](src/test/java/xunshan/jcip/ObjectWaitTest.java) 
+
+#### Blocking data structure
+
+- BlockingQueue
+- ConcurrentHashMap
+- Deque and work stealing
+
+#### Producer-consumer pattern
+
+#### Blocking & interrupt
+
+#### ConcurrentModificationException
+
+### Synchronizer
+
+- CountDownLatch
+- FutureTask
+- Semaphore
+- Barriers
+
+### HashTable, synchronizedMap, ConcurrentHashMap and cache

@@ -1,5 +1,6 @@
 package xunshan.jcip.cas;
 
+// This is a blocking simulation for CAS
 public class SimulatedCAS {
     private int value;
 

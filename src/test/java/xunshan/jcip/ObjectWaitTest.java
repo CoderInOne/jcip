@@ -20,6 +20,10 @@ public class ObjectWaitTest {
      * [2] notifyAll
      * [3] interrupt() call by that thread
      * [4] timeout
+     *
+     * A very important truth: when object#notifyAll, not mean that
+     * all thread awake immediately, lock should be released by notify monitor holder,
+     * and then monitor listeners acquire lock one by one
      */
     @Test
     public void twoThreadWaitInSameObject() {
@@ -41,6 +45,8 @@ public class ObjectWaitTest {
             System.out.println(Thread.currentThread().getName()
                     + ":before sync");
             synchronized (this) {
+                // when threads execute wait, this monitor is relinquished
+                // so others can acquire this monitor
                 System.out.println(Thread.currentThread().getName()
                         + ":in sync");
                 try {
@@ -62,12 +68,11 @@ public class ObjectWaitTest {
             synchronized (lock) {
                 try {
                     lock.wait();
-                    System.out.println("t1 sleep 5 second");
+                    System.out.println("t1 is notified, and sleep 5 second");
                     SimpleThreadUtils.sleepSilently(5000);
                 } catch (InterruptedException e) {
                     fail();
                 } finally {
-                    System.out.println("someone notify t1");
                     latch.countDown();
                 }
             }
@@ -76,12 +81,11 @@ public class ObjectWaitTest {
             synchronized (lock) {
                 try {
                     lock.wait();
-                    System.out.println("t2 sleep 3 second");
+                    System.out.println("t2 is notified and sleep 3 second");
                     SimpleThreadUtils.sleepSilently(3000);
                 } catch (InterruptedException e) {
                     fail();
                 } finally {
-                    System.out.println("someone notify t2");
                     latch.countDown();
                 }
             }
@@ -92,6 +96,10 @@ public class ObjectWaitTest {
                 SimpleThreadUtils.sleepSilently(1000);
                 lock.notifyAll();
                 System.out.println("after notify");
+
+                // notify t1 and t2, but after 5 second, lock release
+                // because we're still in synchronized block
+
                 latch.countDown();
                 System.out.println("before release lock");
                 SimpleThreadUtils.sleepSilently(5000);

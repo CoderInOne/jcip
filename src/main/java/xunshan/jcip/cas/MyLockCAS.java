@@ -2,6 +2,7 @@ package xunshan.jcip.cas;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+// FIXME release code?
 public class MyLockCAS {
     private AtomicBoolean lock = new AtomicBoolean();
 
