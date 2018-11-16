@@ -2,7 +2,7 @@ package xunshan.jcip;
 
 import org.junit.Before;
 import org.junit.Test;
-import xunshan.jcip.ch02.CachedFactorizer;
+import xunshan.jcip.basic.CachedFactorizer;
 import xunshan.jcip.util.SimpleThreadUtils;
 
 import static org.junit.Assert.*;

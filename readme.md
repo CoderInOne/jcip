@@ -1,7 +1,19 @@
 # Code snippets of Java Concurrency in Practice
 
-Every Java developer should read this book carefully! I'll give some brief code snippets that may be helpful
-for understanding. **WARNING**: it's just a summary, dig in the book by yourself if you have doubts!
+Java Concurrency in Practice is a great book. Here are what I learnt:
+
+- basic concepts of concurrency and parallelism, like thread safe, race condition, visibility, lock
+- how to keep code correct and safe when writing concurrent code
+- how to design concurrent logic, like check-and-act against concurrent issue, blocking queue
+- how to improve performance of concurrent code
+- advanced topic: CAS, AQS, Lock API
+
+Here, I give some brief code snippets that help me understand when I read it. Besides, I give some
+references out of the book when I need it, like `Object#wait`.
+
+**WARNING**: it's just a summary, dig in the book by yourself if you have doubts!
+
+Pull requests are welcome!
 
 ## Basic
 
@@ -15,19 +27,13 @@ void update() {
 }
 ```
 
-Example:
-
-- [UnsafeSequence](src/main/java/xunshan/jcip/basic/UnsafeSequence.java)
-- [UnsafeObservable](src/main/java/xunshan/jcip/basic/UnsafeObservable.java)
-- [UnsafeTuple](src/main/java/xunshan/jcip/basic/UnsafeTuple.java)
-
-how `v` read and change?
+How `v` read and change?
 
 - read `v` from memory
-- add `1` by CPU
+- increment `v` by CPU
 - write back into memory
 
-race condition
+Race condition
 
 ```
 two threads t1 and t2 change v at the same time
@@ -35,7 +41,11 @@ t1 ----->| read v = 0 |---->| v = v + 1 = 1 |---->| write v = 1|---> done
 t2 --->| read v = 0 |---->| v = v + 1 = 1 |---->| write v = 1 |---> done
 ```
 
-Solution? Need contract to limit threads' changing order.
+Example:
+
+- [UnsafeSequence](src/main/java/xunshan/jcip/basic/UnsafeSequence.java)
+- [UnsafeObservable](src/main/java/xunshan/jcip/basic/UnsafeObservable.java)
+- [UnsafeTuple](src/main/java/xunshan/jcip/basic/UnsafeTuple.java)
 
 ### Atomicity: to do or not to do
 
@@ -68,6 +78,8 @@ public void nonStop() throws InterruptedException {
 }
 ```
 Uncomment `volatile`, `line 1` always **see** newest `flag` and `flag` is visible.
+
+See [NoVisibilityTest](src/test/java/xunshan/jcip/NoVisibilityTest.java)
 
 ### synchronized key word
 

@@ -1,4 +1,4 @@
-package xunshan.jcip.ch03;
+package xunshan.jcip.basic;
 
 public class SynchronizedInteger {
     private int value;
