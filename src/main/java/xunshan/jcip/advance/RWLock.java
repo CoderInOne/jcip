@@ -4,29 +4,28 @@ import com.google.common.annotations.VisibleForTesting;
 
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
-// simple read-write lock by AQS
-// based by wiki
+// first reader-writer problem
 public class RWLock {
     private final Sync sync = new Sync();
     private final Sync wsync = new Sync();
     private int readCount = 0; // visibility?
 
     public void rlock() {
-        sync.acquire(1);
+        sync.acquireShared(1);
         readCount++;
         if (readCount == 1) {
             wsync.acquire(1);
         }
-        sync.release(1);
+        sync.releaseShared(1);
     }
 
     public void rUnlock() {
-        sync.acquire(1);
+        sync.acquireShared(1);
         readCount--;
         if (readCount == 0) {
             wsync.release(1);
         }
-        sync.release(1);
+        sync.releaseShared(1);
     }
 
     public void wlock() {
