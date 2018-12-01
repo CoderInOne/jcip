@@ -25,7 +25,7 @@ public class MyCountDownLatch {
                 return;
             }
 
-            counter.compareAndSet(c, c - 1);
+            counter.compareAndSet(c, c - 1); // having lock, atomic integer is unnecessary
             if (counter.get() == 0) {
                 lock.notify();
             }
