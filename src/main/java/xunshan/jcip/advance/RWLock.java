@@ -10,10 +10,14 @@ public class RWLock {
     private final Sync wsync = new Sync();
     private int readCount = 0; // visibility?
 
+    /**
+     * TODO learn JDK#tryAcquireShared(int), don't need to contend lock
+     * each time
+     */
     public void rlock() {
         sync.acquireShared(1);
         readCount++;
-        if (readCount == 1) {
+        if (readCount == 1) { //
             wsync.acquire(1);
         }
         sync.releaseShared(1);

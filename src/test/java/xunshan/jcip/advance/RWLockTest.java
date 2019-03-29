@@ -70,6 +70,28 @@ public class RWLockTest {
 
         assertEquals(1, c);
     }
+
+    static int state = 0;
+    static final int SHARED_SHIFT   = 16;
+    static final int SHARED_UNIT    = (1 << SHARED_SHIFT);
+    static final int MAX_COUNT      = (1 << SHARED_SHIFT) - 1;
+    static final int EXCLUSIVE_MASK = (1 << SHARED_SHIFT) - 1;
+
+    /** Returns the number of shared holds represented in count  */
+    static int sharedCount(int c)    { return c >>> SHARED_SHIFT; }
+    /** Returns the number of exclusive holds represented in count  */
+    static int exclusiveCount(int c) { return c & EXCLUSIVE_MASK; }
+
+    @Test
+    public void count() {
+        state += 1;
+        state += 1;
+        state += 1;
+        state += SHARED_UNIT;
+        state += SHARED_UNIT;
+
+        assertEquals(3, exclusiveCount(state));
+    }
 }
 
 
